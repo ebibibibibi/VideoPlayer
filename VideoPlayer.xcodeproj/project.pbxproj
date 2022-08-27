@@ -11,6 +11,7 @@
 		80CBBA6828BA471B0087A108 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CBBA6728BA471B0087A108 /* ContentView.swift */; };
 		80CBBA6A28BA471C0087A108 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 80CBBA6928BA471C0087A108 /* Assets.xcassets */; };
 		80CBBA6D28BA471C0087A108 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 80CBBA6C28BA471C0087A108 /* Preview Assets.xcassets */; };
+		80CBBA7628BA50E00087A108 /* girlSings.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 80CBBA7528BA50E00087A108 /* girlSings.mp4 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,7 @@
 		80CBBA6728BA471B0087A108 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		80CBBA6928BA471C0087A108 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		80CBBA6C28BA471C0087A108 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		80CBBA7528BA50E00087A108 /* girlSings.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; name = girlSings.mp4; path = "../../../Python./ 写真/girlSings.mp4"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +55,7 @@
 			children = (
 				80CBBA6528BA471A0087A108 /* VideoPlayerApp.swift */,
 				80CBBA6728BA471B0087A108 /* ContentView.swift */,
+				80CBBA7528BA50E00087A108 /* girlSings.mp4 */,
 				80CBBA6928BA471C0087A108 /* Assets.xcassets */,
 				80CBBA6B28BA471C0087A108 /* Preview Content */,
 			);
@@ -126,6 +129,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				80CBBA6D28BA471C0087A108 /* Preview Assets.xcassets in Resources */,
+				80CBBA7628BA50E00087A108 /* girlSings.mp4 in Resources */,
 				80CBBA6A28BA471C0087A108 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -267,6 +271,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"VideoPlayer/Preview Content\"";
+				DEVELOPMENT_TEAM = V9WZ4ZJY7A;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -295,6 +300,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"VideoPlayer/Preview Content\"";
+				DEVELOPMENT_TEAM = V9WZ4ZJY7A;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

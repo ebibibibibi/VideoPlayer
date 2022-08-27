@@ -6,11 +6,21 @@
 //
 
 import SwiftUI
+import AVKit
 
 struct ContentView: View {
+    // play river.mp4
+    private let player = AVPlayer(url: Bundle.main.url(forResource: "girlSings", withExtension: "mp4")!)
+
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        HStack{
+            VideoPlayer(player: player)
+            .onAppear() {
+                self.player.play()
+            }.onDisappear() {
+                self.player.pause()
+            }.edgesIgnoringSafeArea(.all)
+        }
     }
 }
 
