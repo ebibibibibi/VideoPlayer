@@ -9,7 +9,6 @@ import SwiftUI
 import AVKit
 
 struct ContentView: View {
-    
     @State var isPushed: Bool = false
     var body: some View {
         VStack {
@@ -22,17 +21,11 @@ struct ContentView: View {
         }
     }
 }
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}
+
 
 struct MoviePlayView: View {
-    
     @Environment(\.dismiss) var dismiss
     private let player = AVPlayer(url: Bundle.main.url(forResource: "girlSings", withExtension: "mp4")!)
-    
     var body: some View {
         VStack {
             HStack{
@@ -57,5 +50,5 @@ class MoviePlayer: UIViewController{
     func driveScreen(to direction: UIInterfaceOrientation) {
         UIDevice.current.setValue(direction.rawValue, forKey: "orientation")
     }
-
+    
 }
