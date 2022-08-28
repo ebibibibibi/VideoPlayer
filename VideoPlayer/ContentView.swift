@@ -9,13 +9,16 @@ import SwiftUI
 import AVKit
 
 struct ContentView: View {
+    
     @State var isPushed: Bool = false
     var body: some View {
         VStack {
             Button("Movieを再生する"){
                 isPushed.toggle()
+                MoviePlayer.shared.driveScreen(to: .landscapeLeft)
             }
-            .sheet(isPresented: $isPushed ) { MoviePlayView()}
+            .sheet(isPresented: $isPushed ) {
+                MoviePlayView()}
         }
     }
 }
@@ -41,8 +44,18 @@ struct MoviePlayView: View {
                     }.edgesIgnoringSafeArea(.all)
             }
             Button("画面を閉じる") {
+                MoviePlayer.shared.driveScreen(to: .portrait)
                 dismiss()
             }
         }
     }
+}
+
+class MoviePlayer: UIViewController{
+    static let shared: MoviePlayer = MoviePlayer()
+    
+    func driveScreen(to direction: UIInterfaceOrientation) {
+        UIDevice.current.setValue(direction.rawValue, forKey: "orientation")
+    }
+
 }
