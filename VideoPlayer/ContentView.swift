@@ -14,7 +14,7 @@ struct ContentView: View {
         VStack {
             Button("Movieを再生する"){
                 isPushed.toggle()
-                MoviePlayer.shared.driveScreen(to: .landscapeLeft)
+                DeviceInterface.shared.driveScreen(to: .landscapeLeft)
             }
             .sheet(isPresented: $isPushed ) {
                 MoviePlayView()}
@@ -25,30 +25,21 @@ struct ContentView: View {
 
 struct MoviePlayView: View {
     @Environment(\.dismiss) var dismiss
-    private let player = AVPlayer(url: Bundle.main.url(forResource: "girlSings", withExtension: "mp4")!)
     var body: some View {
         VStack {
             HStack{
-                VideoPlayer(player: player)
+                VideoPlayer(player: MoviePlayer.shared.player)
                     .onAppear() {
-                        self.player.play()
+                        MoviePlayer.shared.play()
                     }.onDisappear() {
-                        self.player.pause()
+                        MoviePlayer.shared.pause()
                     }.edgesIgnoringSafeArea(.all)
             }
             Button("画面を閉じる") {
-                MoviePlayer.shared.driveScreen(to: .portrait)
+                DeviceInterface.shared.driveScreen(to: .portrait)
                 dismiss()
             }
         }
     }
 }
 
-class MoviePlayer: UIViewController{
-    static let shared: MoviePlayer = MoviePlayer()
-    
-    func driveScreen(to direction: UIInterfaceOrientation) {
-        UIDevice.current.setValue(direction.rawValue, forKey: "orientation")
-    }
-    
-}
