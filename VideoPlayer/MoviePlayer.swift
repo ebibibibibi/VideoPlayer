@@ -9,14 +9,13 @@ import AVKit
 
 class MoviePlayer: NSObject {
     static let shared: MoviePlayer = MoviePlayer()
-    let player = AVPlayer(url: Bundle.main.url(forResource: "girlSings", withExtension: "mp4")!)
-    private var moviePlayer: AVPlayer?
+    var moviePlayer: AVPlayer?
     
     // スタート
     func setMovie(movieName: String) {
         moviePlayer?.pause()
         
-        let moviePath = Bundle.main.path(forResource: movieName, ofType: "mp4") ?? Bundle.main.path(forResource: "noMusicFile", ofType: "mp4")!
+        let moviePath = Bundle.main.path(forResource: movieName, ofType: "mp4") ?? Bundle.main.path(forResource: "noMovieFile", ofType: "mp4")!
         let movieUrl = URL(fileURLWithPath: moviePath)
         do {
             moviePlayer = try AVPlayer(url: movieUrl)
@@ -27,6 +26,7 @@ class MoviePlayer: NSObject {
     }
     // スタート
     func play() {
+        print(self.moviePlayer)
         moviePlayer?.play()
     }
     // 一時停止
