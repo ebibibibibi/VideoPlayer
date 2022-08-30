@@ -14,10 +14,11 @@ struct ContentView: View {
         VStack {
             Button("Movieを再生する"){
                 isPushed.toggle()
-                MoviePlayer.shared.driveScreen(to: .landscapeLeft)
+                DeviceInterface.shared.driveScreen(to: .landscapeLeft)
             }
             .sheet(isPresented: $isPushed ) {
                 MoviePlayView()}
+            
         }
     }
 }
@@ -25,30 +26,69 @@ struct ContentView: View {
 
 struct MoviePlayView: View {
     @Environment(\.dismiss) var dismiss
-    private let player = AVPlayer(url: Bundle.main.url(forResource: "girlSings", withExtension: "mp4")!)
     var body: some View {
-        VStack {
-            HStack{
-                VideoPlayer(player: player)
-                    .onAppear() {
-                        self.player.play()
-                    }.onDisappear() {
-                        self.player.pause()
-                    }.edgesIgnoringSafeArea(.all)
-            }
-            Button("画面を閉じる") {
-                MoviePlayer.shared.driveScreen(to: .portrait)
-                dismiss()
+        ZStack {
+            PlayerViewController()
+                    .edgesIgnoringSafeArea(.all)
+                .onAppear() {
+                    MoviePlayer.shared.play()
+                }.onDisappear() {
+                    MoviePlayer.shared.pause()
+                }
+                
+            VStack {
+                HStack {
+                Image(systemName: "xmark.circle").resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 36, height: 36)
+                    .foregroundColor(Color.white)
+                    .padding()
+                    .onTapGesture() {
+                        DeviceInterface.shared.driveScreen(to: .portrait)
+                        dismiss()
+                    }
+                    Spacer()
+                }
+                Spacer()
+            }.frame(maxWidth: .infinity, maxHeight: .infinity)
+            VStack {
+                HStack(spacing: 40) {
+                    Image(systemName: "pause.circle").resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 36, height: 36)
+                        .foregroundColor(Color.white)
+                        .onTapGesture() {
+                            MoviePlayer.shared.pause()
+                        }
+                    Image(systemName: "play.circle").resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 36, height: 36)
+                        .foregroundColor(Color.white)
+                        .onTapGesture() {
+                            MoviePlayer.shared.play()
+                        }
+                }
+                .padding()
+            }.frame(maxWidth: .infinity,  maxHeight: .infinity, alignment: .bottom)
             }
         }
     }
-}
-
-class MoviePlayer: UIViewController{
-    static let shared: MoviePlayer = MoviePlayer()
     
-    func driveScreen(to direction: UIInterfaceOrientation) {
-        UIDevice.current.setValue(direction.rawValue, forKey: "orientation")
+    
+    struct PlayerViewController: UIViewControllerRepresentable {
+        func makeUIViewController(context: Context) -> AVPlayerViewController {
+            MoviePlayer.shared.setMovie(movieName: "girlSings")
+            let player = MoviePlayer.shared.moviePlayer
+            let controller =  AVPlayerViewController()
+            controller.modalPresentationStyle = .fullScreen
+            controller.player = player
+            controller.videoGravity = .resizeAspectFill
+            controller.showsPlaybackControls = false
+            return controller
+        }
+        
+        func updateUIViewController(_ playerController: AVPlayerViewController, context: Context) {
+            //none
+        }
+        
     }
-    
-}

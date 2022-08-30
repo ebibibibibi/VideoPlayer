@@ -12,6 +12,8 @@
 		80CBBA6A28BA471C0087A108 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 80CBBA6928BA471C0087A108 /* Assets.xcassets */; };
 		80CBBA6D28BA471C0087A108 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 80CBBA6C28BA471C0087A108 /* Preview Assets.xcassets */; };
 		80CBBA7628BA50E00087A108 /* girlSings.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 80CBBA7528BA50E00087A108 /* girlSings.mp4 */; };
+		80CBBA7B28BC55460087A108 /* MoviePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CBBA7A28BC55460087A108 /* MoviePlayer.swift */; };
+		80CBBA7D28BC55600087A108 /* DeviceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CBBA7C28BC55600087A108 /* DeviceInterface.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +23,8 @@
 		80CBBA6928BA471C0087A108 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		80CBBA6C28BA471C0087A108 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		80CBBA7528BA50E00087A108 /* girlSings.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; name = girlSings.mp4; path = "../../../Python./ 写真/girlSings.mp4"; sourceTree = "<group>"; };
+		80CBBA7A28BC55460087A108 /* MoviePlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviePlayer.swift; sourceTree = "<group>"; };
+		80CBBA7C28BC55600087A108 /* DeviceInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceInterface.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +59,8 @@
 			children = (
 				80CBBA6528BA471A0087A108 /* VideoPlayerApp.swift */,
 				80CBBA6728BA471B0087A108 /* ContentView.swift */,
+				80CBBA7A28BC55460087A108 /* MoviePlayer.swift */,
+				80CBBA7C28BC55600087A108 /* DeviceInterface.swift */,
 				80CBBA7528BA50E00087A108 /* girlSings.mp4 */,
 				80CBBA6928BA471C0087A108 /* Assets.xcassets */,
 				80CBBA6B28BA471C0087A108 /* Preview Content */,
@@ -142,6 +148,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				80CBBA6828BA471B0087A108 /* ContentView.swift in Sources */,
+				80CBBA7D28BC55600087A108 /* DeviceInterface.swift in Sources */,
+				80CBBA7B28BC55460087A108 /* MoviePlayer.swift in Sources */,
 				80CBBA6628BA471A0087A108 /* VideoPlayerApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
