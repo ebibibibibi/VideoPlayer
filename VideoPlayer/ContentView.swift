@@ -7,19 +7,30 @@
 
 import SwiftUI
 import AVKit
+import UIKit
 
 struct ContentView: View {
     @State var isPushed: Bool = false
     var body: some View {
-        VStack {
-            Button("Movieを再生する"){
-                isPushed.toggle()
-                DeviceInterface.shared.driveScreen(to: .landscapeLeft)
+        NavigationView(){
+            VStack {
+                NavigationLink(isActive: $isPushed) {
+                    MoviePlayView()
+                } label: {
+                    EmptyView()
+                }
+                Button("Movie", action: {
+                    self.isPushed.toggle()
+                    MoviePlayer.shared.setMovie(movieName: "00001")
+                })
             }
-            .sheet(isPresented: $isPushed ) {
-                MoviePlayView()}
-            
-        }
+            .onAppear() {
+                print("にゃ?")
+                UIDevice.current.setValue(UIDeviceOrientation.portrait.rawValue, forKeyPath: "orientation")
+                print("u\(UIDevice.current.orientation.rawValue)にゃ")
+            }
+            .navigationBarHidden(true)
+        }.navigationViewStyle(.stack)
     }
 }
 
@@ -29,66 +40,51 @@ struct MoviePlayView: View {
     var body: some View {
         ZStack {
             PlayerViewController()
-                    .edgesIgnoringSafeArea(.all)
+                .edgesIgnoringSafeArea(.all)
                 .onAppear() {
                     MoviePlayer.shared.play()
+                    UIDevice.current.setValue(UIDeviceOrientation.landscapeLeft.rawValue, forKeyPath: "orientation")
+                    print("🧸\(UIDevice.current.orientation.rawValue)🧸")
+                    print("にゃん")
+                    
                 }.onDisappear() {
+                    print("🍓\(UIDevice.current.orientation.rawValue)")
+                    UIDevice.current.setValue(UIDeviceOrientation.portrait.rawValue, forKeyPath: "orientation")
+                    print("🍓\(UIDevice.current.orientation.rawValue)")
                     MoviePlayer.shared.pause()
                 }
-                
-            VStack {
-                HStack {
-                Image(systemName: "xmark.circle").resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 36, height: 36)
-                    .foregroundColor(Color.white)
-                    .padding()
-                    .onTapGesture() {
-                        DeviceInterface.shared.driveScreen(to: .portrait)
-                        dismiss()
-                    }
-                    Spacer()
+        }
+    }
+}
+
+class ViewController: UIHostingController< ContentView > {
+    var window: UIWindow?
+    let hostingController = UIHostingController(rootView: ContentView())
+    
+    
+    override dynamic func viewDidAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
+        print("🧸")
+        
+    }
+}
+
+extension UINavigationController {
+    override open var supportedInterfaceOrientations: UIInterfaceOrientationMask{
+            get {
+                if let visibleVC = visibleViewController {
+                    return visibleVC.supportedInterfaceOrientations
                 }
-                Spacer()
-            }.frame(maxWidth: .infinity, maxHeight: .infinity)
-            VStack {
-                HStack(spacing: 40) {
-                    Image(systemName: "pause.circle").resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 36, height: 36)
-                        .foregroundColor(Color.white)
-                        .onTapGesture() {
-                            MoviePlayer.shared.pause()
-                        }
-                    Image(systemName: "play.circle").resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 36, height: 36)
-                        .foregroundColor(Color.white)
-                        .onTapGesture() {
-                            MoviePlayer.shared.play()
-                        }
-                }
-                .padding()
-            }.frame(maxWidth: .infinity,  maxHeight: .infinity, alignment: .bottom)
+                return super.supportedInterfaceOrientations
             }
         }
-    }
-    
-    
-    struct PlayerViewController: UIViewControllerRepresentable {
-        func makeUIViewController(context: Context) -> AVPlayerViewController {
-            MoviePlayer.shared.setMovie(movieName: "girlSings")
-            let player = MoviePlayer.shared.moviePlayer
-            let controller =  AVPlayerViewController()
-            controller.modalPresentationStyle = .fullScreen
-            controller.player = player
-            controller.videoGravity = .resizeAspectFill
-            controller.showsPlaybackControls = false
-            return controller
+    override open var shouldAutorotate: Bool {
+        get {
+            if let visibleVC = visibleViewController {
+                return visibleVC.shouldAutorotate
+            }
+            return super.shouldAutorotate
         }
-        
-        func updateUIViewController(_ playerController: AVPlayerViewController, context: Context) {
-            //none
-        }
-        
     }
+}
