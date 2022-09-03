@@ -24,15 +24,32 @@ struct ContentView: View {
                     MoviePlayer.shared.setMovie(movieName: "00001")
                 })
             }
-            .onAppear() {
-                print("にゃ?")
-                UIDevice.current.setValue(UIDeviceOrientation.portrait.rawValue, forKeyPath: "orientation")
+            .onAppear {
                 print("u\(UIDevice.current.orientation.rawValue)にゃ")
+                UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
+                AppDelegate.orientationLock = .portrait 
+            }.onDisappear {
+                AppDelegate.orientationLock = .all 
             }
+            
             .navigationBarHidden(true)
         }.navigationViewStyle(.stack)
     }
 }
+
+class AppDelegate: NSObject, UIApplicationDelegate {
+    
+    static var orientationLock = UIInterfaceOrientationMask.portrait
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+        print("u\(UIInterfaceOrientationMask.RawValue())にゃ")
+        return AppDelegate.orientationLock
+    }
+}
+
+
+
+
+
 
 
 struct MoviePlayView: View {
@@ -55,36 +72,6 @@ struct MoviePlayView: View {
                 }
         }
     }
+    
 }
 
-class ViewController: UIHostingController< ContentView > {
-    var window: UIWindow?
-    let hostingController = UIHostingController(rootView: ContentView())
-    
-    
-    override dynamic func viewDidAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
-        print("🧸")
-        
-    }
-}
-
-extension UINavigationController {
-    override open var supportedInterfaceOrientations: UIInterfaceOrientationMask{
-            get {
-                if let visibleVC = visibleViewController {
-                    return visibleVC.supportedInterfaceOrientations
-                }
-                return super.supportedInterfaceOrientations
-            }
-        }
-    override open var shouldAutorotate: Bool {
-        get {
-            if let visibleVC = visibleViewController {
-                return visibleVC.shouldAutorotate
-            }
-            return super.shouldAutorotate
-        }
-    }
-}
